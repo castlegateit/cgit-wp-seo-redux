@@ -99,11 +99,13 @@ class Optimizer
      *
      * @return string
      */
-    public function optimizeTitle($title)
+    public function optimizeTitle($default)
     {
         $field = $this->prefix . 'seo_title';
+        $title = get_field($field, $this->sourceId);
+        $title = apply_filters('cgit_seo_title', $title);
 
-        return get_field($field, $this->sourceId) ?: $title;
+        return $title ?: $default;
     }
 
     /**
@@ -117,13 +119,14 @@ class Optimizer
     public function optimizeDescription()
     {
         $field = $this->prefix . 'seo_description';
-        $seo_description = get_field($field, $this->sourceId);
+        $description = get_field($field, $this->sourceId);
+        $description = apply_filters('cgit_seo_description', $description);
 
-        if (!$seo_description) {
+        if (!$description) {
             return;
         }
 
-        echo '<meta name="description" content="' . $seo_description . '" />';
+        echo '<meta name="description" content="' . $description . '" />';
     }
 
     /**
@@ -134,10 +137,11 @@ class Optimizer
     public function getHeading()
     {
         $field = $this->prefix . 'seo_heading';
-        $seo_heading = get_field($field, $this->sourceId);
+        $heading = get_field($field, $this->sourceId);
+        $heading = apply_filters('cgit_seo_heading', $heading);
 
-        if ($seo_heading) {
-            return $seo_heading;
+        if ($heading) {
+            return $heading;
         }
 
         if (is_page() || is_singular()) {
