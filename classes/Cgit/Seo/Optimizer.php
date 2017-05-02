@@ -101,7 +101,9 @@ class Optimizer
      */
     public function optimizeTitle($title)
     {
-        return get_field('seo_title', $this->sourceId) ?: $title;
+        $field = $this->prefix . 'seo_title';
+
+        return get_field($field, $this->sourceId) ?: $title;
     }
 
     /**
@@ -114,7 +116,8 @@ class Optimizer
      */
     public function optimizeDescription()
     {
-        $seo_description = get_field('seo_description', $this->sourceId);
+        $field = $this->prefix . 'seo_description';
+        $seo_description = get_field($field, $this->sourceId);
 
         if (!$seo_description) {
             return;
@@ -130,7 +133,8 @@ class Optimizer
      */
     public function getHeading()
     {
-        $seo_heading = get_field('seo_heading', $this->sourceId);
+        $field = $this->prefix . 'seo_heading';
+        $seo_heading = get_field($field, $this->sourceId);
 
         if ($seo_heading) {
             return $seo_heading;
