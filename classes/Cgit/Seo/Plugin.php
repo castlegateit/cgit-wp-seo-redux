@@ -16,7 +16,7 @@ class Plugin
      *
      * @return void
      */
-    private function __construct()
+    public function __construct()
     {
         register_activation_hook(CGIT_SEO_PLUGIN, [$this, 'activate']);
 
