@@ -5,13 +5,6 @@ namespace Cgit\Seo;
 class Plugin
 {
     /**
-     * Singleton instance
-     *
-     * @var self
-     */
-    private static $instance;
-
-    /**
      * Optimizer instance
      *
      * @var Optimizer
@@ -19,7 +12,7 @@ class Plugin
     public $optimizer;
 
     /**
-     * Private constructor
+     * Constructor
      *
      * @return void
      */
@@ -32,20 +25,6 @@ class Plugin
         new UserGuideSectionMaker;
 
         $this->optimizer = new Optimizer;
-    }
-
-    /**
-     * Return the singleton instance
-     *
-     * @return self
-     */
-    public static function getInstance()
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new self;
-        }
-
-        return self::$instance;
     }
 
     /**
