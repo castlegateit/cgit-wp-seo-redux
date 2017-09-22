@@ -7,6 +7,5 @@
  */
 function cgit_seo_heading()
 {
-    $plugin = Cgit\Seo\Plugin::getInstance();
-    return $plugin->optimizer->getHeading();
+    return (new \Cgit\Seo\Optimizer)->getHeading();
 }

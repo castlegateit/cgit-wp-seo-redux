@@ -5,7 +5,7 @@
 Plugin Name: Castlegate IT WP SEO Redux
 Plugin URI: https://github.com/castlegateit/cgit-wp-seo-redux
 Description: Even better ACF SEO fields for titles, headings, and descriptions.
-Version: 1.1
+Version: 1.2
 Author: Castlegate IT
 Author URI: https://www.castlegateit.co.uk/
 License: MIT
