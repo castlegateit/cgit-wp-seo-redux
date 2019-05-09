@@ -8,7 +8,7 @@ Description: Even better ACF SEO fields for titles, headings, and descriptions.
 Version: 1.3
 Author: Castlegate IT
 Author URI: https://www.castlegateit.co.uk/
-License: MIT
+License: AGPLv3
 
 */
 
