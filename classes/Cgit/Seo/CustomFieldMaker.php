@@ -35,28 +35,28 @@ class CustomFieldMaker
             ],
         ],
     ];
-    
+
     /**
      * Parameters for custom fields on the SEO options page
      *
      * @var array
      */
     private $optionsPageArgs = [];
-    
+
     /**
      * Post types that should have SEO fields
      *
      * @var array
      */
     private $types = [];
-    
+
     /**
      * Taxonomies that should have SEO fields
      *
      * @var array
      */
     private $taxonomies = [];
-    
+
     /**
      * Constructor
      *
@@ -66,7 +66,7 @@ class CustomFieldMaker
     {
         add_action('admin_menu', [$this, 'register'], 20);
     }
-    
+
     /**
      * Register custom fields
      *
@@ -81,16 +81,16 @@ class CustomFieldMaker
     {
         $this->updateArgs();
         $this->updateOptionsPageArgs();
-        
+
         // Register post and page fields
         acf_add_local_field_group($this->args);
-        
+
         // Register options page fields for each post type and taxonomy
         foreach ($this->optionsPageArgs as $args) {
             acf_add_local_field_group($args);
         }
     }
-    
+
     /**
      * Update custom field parameters
      *
@@ -104,7 +104,7 @@ class CustomFieldMaker
     {
         $this->updatePostTypes();
         $this->updateTaxonomies();
-        
+
         foreach ($this->types as $type) {
             $this->args['location'][] = [
                 [
@@ -114,7 +114,7 @@ class CustomFieldMaker
                 ],
             ];
         }
-        
+
         foreach ($this->taxonomies as $taxonomy) {
             $this->args['location'][] = [
                 [
@@ -124,10 +124,10 @@ class CustomFieldMaker
                 ],
             ];
         }
-        
+
         $this->args = apply_filters('cgit_seo_field_args', $this->args);
     }
-    
+
     /**
      * Update list of post types
      *
@@ -144,17 +144,17 @@ class CustomFieldMaker
             'acf-field-group',
             'acf-field',
         ]);
-        
+
         if($this->isPostsArchivePage()) {
             $forbidden[] = 'page';
         }
-        
-        $types = array_diff(get_post_types(), $forbidden);
+
+        $types = array_diff(get_post_types(['public' => true]), $forbidden);
         $types = apply_filters('cgit_seo_post_types', $types);
-        
+
         $this->types = $types;
     }
-    
+
     /**
      * Update list of taxonomies
      *
@@ -167,13 +167,13 @@ class CustomFieldMaker
             'link_category',
             'post_format',
         ]);
-        
+
         $taxonomies = array_diff(get_taxonomies(), $forbidden);
         $taxonomies = apply_filters('cgit_seo_taxonomies', $taxonomies);
-        
+
         $this->taxonomies = $taxonomies;
     }
-    
+
     /**
      * Update options page field parameters
      *
@@ -187,13 +187,13 @@ class CustomFieldMaker
             if ($type_name == 'page') {
                 continue;
             }
-            
+
             $type = get_post_type_object($type_name);
             $args = $this->createOptionsPageGroupArgs($type_name, $type->label);
             $this->optionsPageArgs[] = $args;
         }
     }
-    
+
     /**
      * Create and return options page field group parameters
      *
@@ -218,16 +218,16 @@ class CustomFieldMaker
             ],
             'fields' => [],
         ];
-        
+
         foreach ($fields as $field) {
             $field['key'] = $key . '_' . $field['key'];
             $field['name'] = $key . '_' . $field['name'];
             $args['fields'][] = $field;
         }
-        
+
         return $args;
     }
-    
+
     /**
      * Checks if the currently-edited page is being used as the posts archive page.
      *
