@@ -64,15 +64,14 @@ class CustomFieldMaker
      */
     public function __construct()
     {
-        add_action('admin_menu', [$this, 'register'], 20);
+        add_action('init', [$this, 'register'], 99);
     }
 
     /**
      * Register custom fields
      *
      * This should happen after any custom post types have been defined, which
-     * should happen during "init", and after the SEO options page has been
-     * defined, at "admin_menu" 10. It should also happen before the options
+     * should happen during "init". It should also happen before the options
      * page has been rendered by ACF, which happens during "admin_menu" 99.
      *
      * @return void
